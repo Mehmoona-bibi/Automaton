@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+chan press;
+int [1,2] turn;
+int [0,1] req1,req2;</declaration>
+	<template>
+		<name>Light1</name>
+		<declaration>clock y1;</declaration>
+		<location id="id0" x="-204" y="76">
+			<name x="-187" y="68">bright</name>
+		</location>
+		<location id="id1" x="-204" y="-17">
+			<name x="-195" y="-17">medium</name>
+		</location>
+		<location id="id2" x="-204" y="-119">
+			<name x="-187" y="-136">light</name>
+		</location>
+		<location id="id3" x="-204" y="-263">
+			<name x="-214" y="-297">off</name>
+		</location>
+		<init ref="id3"/>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-153" y="-229">turn==1</label>
+			<label kind="synchronisation" x="-153" y="-212">press?</label>
+			<label kind="assignment" x="-153" y="-187">req1:=1</label>
+			<nail x="-161" y="-221"/>
+			<nail x="-161" y="-161"/>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="assignment" x="-204" y="-191">y1:=0</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-280" y="17">req1==1</label>
+			<nail x="-229" y="8"/>
+			<nail x="-229" y="51"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-170" y="-85">req1==1</label>
+			<nail x="-170" y="-94"/>
+			<nail x="-170" y="-43"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-348" y="-178">press?</label>
+			<label kind="assignment" x="-348" y="-161">req1:=0</label>
+			<nail x="-289" y="76"/>
+			<nail x="-289" y="-263"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-69" y="-153">y1&gt;=8</label>
+			<label kind="synchronisation" x="-69" y="-136">press?</label>
+			<label kind="assignment" x="-69" y="-110">req1:=0</label>
+			<nail x="-77" y="-17"/>
+			<nail x="-77" y="-263"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-280" y="-212">y1&gt;=5</label>
+			<label kind="synchronisation" x="-280" y="-195">press?</label>
+			<label kind="assignment" x="-280" y="-178">req1:=0</label>
+			<nail x="-229" y="-144"/>
+			<nail x="-229" y="-229"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-195" y="8">y1&lt;8</label>
+			<label kind="synchronisation" x="-195" y="25">press?</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-246" y="-93">y1&lt;5</label>
+			<label kind="synchronisation" x="-255" y="-77">press?</label>
+		</transition>
+	</template>
+	<template>
+		<name x="5" y="5">Light2</name>
+		<declaration>clock y;</declaration>
+		<location id="id4" x="-807" y="-162">
+			<name x="-790" y="-162">bright</name>
+		</location>
+		<location id="id5" x="-807" y="-263">
+			<name x="-875" y="-280">medium</name>
+		</location>
+		<location id="id6" x="-807" y="-340">
+			<name x="-790" y="-349">light</name>
+		</location>
+		<location id="id7" x="-807" y="-493">
+			<name x="-817" y="-527">off</name>
+		</location>
+		<init ref="id7"/>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-756" y="-450">turn==2</label>
+			<label kind="synchronisation" x="-756" y="-416">press?</label>
+			<label kind="assignment" x="-756" y="-433">req2:=1</label>
+			<nail x="-764" y="-450"/>
+			<nail x="-764" y="-382"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id6"/>
+			<label kind="assignment" x="-798" y="-425">y:=0</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-884" y="-221">req2==1</label>
+			<nail x="-824" y="-238"/>
+			<nail x="-824" y="-196"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id5"/>
+			<label kind="guard" x="-773" y="-314">req2==1</label>
+			<nail x="-781" y="-322"/>
+			<nail x="-781" y="-289"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-671" y="-391">y&gt;=8</label>
+			<label kind="synchronisation" x="-671" y="-416">press?</label>
+			<label kind="assignment" x="-671" y="-374">req2:=0</label>
+			<nail x="-730" y="-263"/>
+			<nail x="-679" y="-263"/>
+			<nail x="-679" y="-493"/>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-798" y="-230">y&lt;8</label>
+			<label kind="synchronisation" x="-798" y="-213">press?</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-883" y="-450">y&gt;=5</label>
+			<label kind="synchronisation" x="-883" y="-433">press?</label>
+			<label kind="assignment" x="-883" y="-416">req2:=0</label>
+			<nail x="-832" y="-365"/>
+			<nail x="-832" y="-459"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-943" y="-340">press?</label>
+			<label kind="assignment" x="-951" y="-314">req2:=0</label>
+			<nail x="-892" y="-162"/>
+			<nail x="-892" y="-493"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id5"/>
+			<label kind="guard" x="-841" y="-331">y&lt;5</label>
+			<label kind="synchronisation" x="-858" y="-314">press?</label>
+			<nail x="-807" y="-280"/>
+		</transition>
+	</template>
+	<template>
+		<name>user</name>
+		<location id="id8" x="-561" y="-382">
+		</location>
+		<init ref="id8"/>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="-519" y="-399">press!</label>
+			<nail x="-527" y="-416"/>
+			<nail x="-527" y="-348"/>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+User = user();
+Process1 = Light1();
+Process2 = Light2();
+// List one or more processes to be composed into a system.
+system User,Process1,Process2;
+    </system>
+	<queries>
+		<query>
+			<formula>E&lt;&gt; (Process2.bright and Process2.y&lt;8)
+			</formula>
+			<comment>when process2 is at bright y is less than 8
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; (Process1.bright and Process1.y1&lt;8)
+			</formula>
+			<comment>when process1 is at bright y1 is less than 8
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; not deadlock
+			</formula>
+			<comment>there does exist a deadlock
+			</comment>
+		</query>
+		<query>
+			<formula>A[] not deadlock
+			</formula>
+			<comment>system does not have a deadlock
+			</comment>
+		</query>
+	</queries>
+</nta>
