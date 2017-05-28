@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+chan press;</declaration>
+	<template>
+		<name x="5" y="5">AC</name>
+		<declaration>// Place local declarations here.
+clock temp;
+int [0,1] on;</declaration>
+		<location id="id0" x="-2184" y="-307">
+			<name x="-2235" y="-290">increase_temp</name>
+		</location>
+		<location id="id1" x="-2184" y="-587">
+			<name x="-2218" y="-621">lessen_temp</name>
+		</location>
+		<location id="id2" x="-2184" y="-442">
+			<name x="-2168" y="-451">running</name>
+		</location>
+		<location id="id3" x="-2414" y="-451">
+			<name x="-2424" y="-485">off</name>
+		</location>
+		<init ref="id3"/>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-2100" y="-451">temp==20</label>
+			<nail x="-2108" y="-476"/>
+			<nail x="-2108" y="-408"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-2269" y="-375">on==1</label>
+			<nail x="-2218" y="-400"/>
+			<nail x="-2218" y="-358"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-2252" y="-527">on==1</label>
+			<nail x="-2210" y="-485"/>
+			<nail x="-2210" y="-544"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-2354" y="-425">press?</label>
+			<label kind="assignment" x="-2303" y="-425">on:=0</label>
+			<nail x="-2252" y="-425"/>
+			<nail x="-2346" y="-425"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id2"/>
+			<label kind="assignment" x="-2134" y="-383">temp:=20</label>
+			<nail x="-2142" y="-341"/>
+			<nail x="-2142" y="-408"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="assignment" x="-2142" y="-536">temp:=20</label>
+			<nail x="-2142" y="-553"/>
+			<nail x="-2142" y="-476"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-2201" y="-392">temp&lt;20</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-2201" y="-536">temp&gt;20</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-2354" y="-485">press?</label>
+			<label kind="assignment" x="-2303" y="-485">on:=1</label>
+			<nail x="-2337" y="-468"/>
+			<nail x="-2261" y="-468"/>
+		</transition>
+	</template>
+	<template>
+		<name>User</name>
+		<location id="id4" x="-1428" y="-476">
+			<name x="-1438" y="-510">idle</name>
+		</location>
+		<init ref="id4"/>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-1369" y="-484">press!</label>
+			<nail x="-1377" y="-527"/>
+			<nail x="-1377" y="-433"/>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+// List one or more processes to be composed into a system.
+system AC,User;
+    </system>
+	<queries>
+		<query>
+			<formula>E&lt;&gt; deadlock
+			</formula>
+			<comment>there exist a deadlock
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; (AC.running and AC.on==0)
+			</formula>
+			<comment>AC is running and AC is off
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; (AC.running and AC.on==1)
+			</formula>
+			<comment>AC is running and AC is on
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; (AC.running and AC.temp&lt;20)
+			</formula>
+			<comment>AC is running and temprature is less than 20
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; (AC.running and AC.temp&gt;20)
+			</formula>
+			<comment>AC is running and temprature is greater than 20
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; (AC.running and AC.temp==20)
+			</formula>
+			<comment>AC is running and temprature isequal to 20
+			</comment>
+		</query>
+		<query>
+			<formula>A[] not deadlock
+			</formula>
+			<comment>there does not exist a deadlock
+			</comment>
+		</query>
+	</queries>
+</nta>
